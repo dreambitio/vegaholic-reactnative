@@ -1,0 +1,3 @@
+rootProject.name = 'vegaholic'
+
+include ':app'
