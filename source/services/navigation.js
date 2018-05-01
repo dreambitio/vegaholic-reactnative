@@ -5,7 +5,8 @@ export const screenNavigationOptions = options => ({
     textAlign: 'center',
     marginTop: 20,
     color: 'white',
-    fontSize: 42
+    fontSize: 42,
+    fontFamily: 'Montserrat'
   },
   headerStyle: {
     elevation: 0, //remove shadow on Android
