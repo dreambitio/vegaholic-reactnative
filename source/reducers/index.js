@@ -1,8 +1,7 @@
-const initialState = {}
+import { combineReducers } from 'redux'
 
-export default rootReducer = (state = initialState, {type, payload}) => {
-  switch (type) {
-    default:
-      return state
-  }
-}
+import places from './places'
+
+export default combineReducers({
+  places
+})

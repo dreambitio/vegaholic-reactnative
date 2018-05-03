@@ -26,23 +26,20 @@ const request = urlString => {
   })
 }
 
-export const fetchPlaces = () => {
+export const fetchVenues = () => {
   let params = {
     query: 'vegan',
     intent: 'global'
   }
-  params = Object.assign(params, defaultParams)
+  params = {...params, ...defaultParams}
 
   let urlString = `${apiUrl}/search?${queryString.stringify(params)}`
 
   return request(urlString).then(response => response.venues)
 }
 
-export const fetchPlace = id => {
-  let params = {}
-  params = Object.assign(params, defaultParams)
-
-  let urlString = `${apiUrl}/${id}?${queryString.stringify(params)}`
+export const fetchVenue = id => {
+  let urlString = `${apiUrl}/${id}?${queryString.stringify(defaultParams)}`
 
   return request(urlString).then(response => response.venue)
 }
