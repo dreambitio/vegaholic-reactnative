@@ -1,4 +1,4 @@
-import { RECEIVE_PLACES_IDS, RECEIVE_PLACE } from '../constants'
+import { RECEIVE_PLACES_IDS, RECEIVE_PLACE, LIKE_PLACE } from '../constants'
 import { fetchVenues, fetchVenue } from '../services/foursquare'
 
 const receivePlacesList = ids => ({
@@ -24,3 +24,8 @@ const receivePlace = (id, record) => ({
 export const fetchPlace = id => dispatch => {
   fetchVenue(id).then(place => dispatch(receivePlace(id, place)))
 }
+
+export const likePlace = id => ({
+  type: LIKE_PLACE,
+  payload: {id}
+})

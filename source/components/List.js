@@ -4,6 +4,21 @@ import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native'
 import ListItem from '../containers/ListItem'
 
 export default class List extends Component {
+  constructor (props) {
+    super(props)
+    this.setScrollEnabled = this.setScrollEnabled.bind(this)
+
+    this.state = {
+      enable: true
+    }
+  }
+
+  setScrollEnabled (enable) {
+    this.setState({
+      enable
+    })
+  }
+
   componentDidMount () {
     this.props.fetchPlacesList()
   }
@@ -13,13 +28,21 @@ export default class List extends Component {
       size="large"/></View>
   }
 
+  renderItem (item) {
+    return <ListItem
+      id={item.id}
+      setScrollEnabled={enable => this.setScrollEnabled(enable)}
+    />
+  }
+
   renderList () {
     let data = this.props.allIds.map(id => this.props.byId[id])
 
     return <FlatList
       style={styles.container}
       data={data}
-      renderItem={({item}) => <ListItem style={styles.item} id={item.id}/>}
+      renderItem={({item}) => this.renderItem(item)}
+      scrollEnabled={this.state.enable}
     />
   }
 
@@ -30,9 +53,6 @@ export default class List extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20
-  },
-  item: {
-    marginBottom: 30
+    paddingVertical: 5
   }
 })

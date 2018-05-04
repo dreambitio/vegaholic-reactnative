@@ -1,2 +1,3 @@
 export const RECEIVE_PLACES_IDS = 'RECEIVE_PLACES_IDS'
 export const RECEIVE_PLACE = 'RECEIVE_PLACE'
+export const LIKE_PLACE = 'LIKE_PLACE'
