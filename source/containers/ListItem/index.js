@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { withNavigation } from 'react-navigation'
 
-import { fetchPlace, likePlace } from '../actions/places'
-import ListItem from '../components/ListItem'
+import { fetchPlace, likePlace } from '../../actions/places'
+import ListItem from '../../components/ListItem/index'
 
 const mapStateToProps = (state, ownProps) => ({
   record: state.places.byId[ownProps.id]

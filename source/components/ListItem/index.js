@@ -2,13 +2,14 @@ import React, { Component } from 'react'
 import {
   View,
   Animated,
-  ActivityIndicator,
-  Text,
   StyleSheet,
   PanResponder,
   Dimensions,
   Image
 } from 'react-native'
+
+import Photo from '../../containers/ListItem/Photo'
+import Info from '../../containers/ListItem/Info'
 
 const {width} = Dimensions.get('window')
 
@@ -59,15 +60,8 @@ export default class ListItem extends Component {
     this.props.fetchPlace()
   }
 
-  renderLoader () {
-    return <ActivityIndicator/>
-  }
-
-  renderRecord () {
-    const {
-      name,
-      liked
-    } = this.props.record
+  render () {
+    const {id} = this.props.record
 
     return <View style={styles.container}>
       <Animated.View
@@ -75,18 +69,14 @@ export default class ListItem extends Component {
         {...this.panResponder.panHandlers}
       >
         <View style={styles.likeCell}>
-          <Image source={require('../assets/icons/likes/heart_big.png')}/>
+          <Image source={require('../../assets/icons/likes/heart_big.png')}/>
         </View>
         <View style={styles.itemCell}>
-          <Text>{name}</Text>
-          <Text>Liked: {liked ? 'true' : 'false'}</Text>
+          <Photo id={id} style={styles.photo}/>
+          <Info id={id}/>
         </View>
       </Animated.View>
     </View>
-  }
-
-  render () {
-    return this.props.record.readyToRender ? this.renderRecord() : this.renderLoader()
   }
 }
 
@@ -105,12 +95,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center'
   },
-  
+
   itemCell: {
+    flexDirection: 'row',
     width: width,
     marginLeft: 100,
     paddingVertical: 15,
     paddingHorizontal: 20,
     minHeight: 90
+  },
+
+  photo: {
+    marginRight: 20
   }
 })

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native'
 
-import ListItem from '../containers/ListItem'
+import ListItem from '../containers/ListItem/index'
 
 export default class List extends Component {
   constructor (props) {
