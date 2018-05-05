@@ -24,7 +24,7 @@ export default class List extends Component {
   }
 
   renderLoader () {
-    return <View style={styles.container}><ActivityIndicator
+    return <View style={styles.loaderContainer}><ActivityIndicator
       size="large"/></View>
   }
 
@@ -54,5 +54,9 @@ export default class List extends Component {
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 5
+  },
+
+  loaderContainer: {
+    padding: 25
   }
 })
