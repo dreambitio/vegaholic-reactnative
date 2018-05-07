@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 
-import { fetchPlacesList } from '../actions/places'
+import { fetchPlaces } from '../actions/places'
 import List from '../components/List'
 
 const mapStateToProps = state => ({
@@ -9,7 +9,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  fetchPlacesList: () => dispatch(fetchPlacesList())
+  fetchPlaces: () => dispatch(fetchPlaces())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(List)

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { FlatList, View, ActivityIndicator, StyleSheet } from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 
-import ListItem from '../containers/ListItem/index'
+import Placeholder from './Placeholder'
+import ListItem from '../../containers/ListItem'
 
 export default class List extends Component {
   constructor (props) {
@@ -20,12 +21,11 @@ export default class List extends Component {
   }
 
   componentDidMount () {
-    this.props.fetchPlacesList()
+    this.props.fetchPlaces()
   }
 
-  renderLoader () {
-    return <View style={styles.loaderContainer}><ActivityIndicator
-      size="large"/></View>
+  renderPlaceholder () {
+    return <Placeholder count={5}/>
   }
 
   renderItem (item) {
@@ -47,16 +47,12 @@ export default class List extends Component {
   }
 
   render () {
-    return this.props.allIds.length === 0 ? this.renderLoader() : this.renderList()
+    return this.props.allIds.length === 0 ? this.renderPlaceholder() : this.renderList()
   }
 }
 
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 5
-  },
-
-  loaderContainer: {
-    padding: 25
   }
 })

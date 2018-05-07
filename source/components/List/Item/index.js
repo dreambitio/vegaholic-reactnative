@@ -8,8 +8,8 @@ import {
   Image
 } from 'react-native'
 
-import Photo from '../../containers/ListItem/Photo'
-import Info from '../../containers/ListItem/Info'
+import Photo from './Photo'
+import Info from './Info'
 
 const {width} = Dimensions.get('window')
 
@@ -56,12 +56,12 @@ export default class ListItem extends Component {
     }
   }
 
-  componentDidMount () {
-    this.props.fetchPlace()
-  }
-
   render () {
-    const {id} = this.props.record
+    const {
+      previewPhoto,
+      name,
+      liked
+    } = this.props.record
 
     return <View style={styles.container}>
       <Animated.View
@@ -69,11 +69,14 @@ export default class ListItem extends Component {
         {...this.panResponder.panHandlers}
       >
         <View style={styles.likeCell}>
-          <Image source={require('../../assets/icons/likes/heart_big.png')}/>
+          <Image source={require('../../../assets/icons/likes/heart_big.png')}/>
         </View>
         <View style={styles.itemCell}>
-          <Photo id={id} style={styles.photo}/>
-          <Info id={id}/>
+          <Photo style={styles.photo} uri={previewPhoto}/>
+          <Info
+            name={name}
+            liked={liked}
+          />
         </View>
       </Animated.View>
     </View>

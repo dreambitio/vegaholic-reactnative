@@ -30,7 +30,7 @@ export const fetchVenues = () => {
   let params = {
     query: 'vegan',
     intent: 'global',
-    limit: 2
+    limit: 5
   }
   params = {...params, ...defaultParams}
 

@@ -1,5 +1,5 @@
 import {
-  RECEIVE_PLACES_IDS,
+  RECEIVE_PLACES,
   RECEIVE_PLACE,
   RECEIVE_PLACE_PHOTOS,
   LIKE_PLACE
@@ -10,18 +10,36 @@ import {
   fetchVenuePhotos
 } from '../services/foursquare'
 
-const receivePlacesList = ids => ({
-  type: RECEIVE_PLACES_IDS,
+const receivePlaces = (byId, allIds) => ({
+  type: RECEIVE_PLACES,
   payload: {
-    ids
+    byId,
+    allIds
   }
 })
 
-export const fetchPlacesList = () => dispatch => {
+export const fetchPlaces = () => dispatch => {
   fetchVenues().
     then(places => {
-      let ids = places.map(place => place.id)
-      dispatch(receivePlacesList(ids))
+      let promises = places.map(place => Promise.all([fetchVenue(place.id), fetchVenuePhotos(place.id)]))
+
+      Promise.all(promises).then(places => {
+        let placesById = {}
+        let allPlacesIds = places.map(place => {
+          const details = place[0]
+          const photos = place[1]
+          placesById[details.id] = {
+            ...details,
+            photos: photos.map(photo => ({
+              prefix: photo.prefix,
+              suffix: photo.suffix
+            })),
+            previewPhoto: `${photos[0].prefix}90x90${photos[0].suffix}`
+          }
+          return details.id
+        })
+        dispatch(receivePlaces(placesById, allPlacesIds))
+      })
     })
 }
 
@@ -48,7 +66,6 @@ export const fetchPlacePhotos = id => dispatch => {
     return dispatch(receivePlacePhotos(id, photos))
   })
 }
-
 
 export const likePlace = id => ({
   type: LIKE_PLACE,
