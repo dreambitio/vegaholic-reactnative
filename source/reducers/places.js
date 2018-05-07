@@ -4,7 +4,8 @@ import {
   RECEIVE_PLACES,
   RECEIVE_PLACE,
   RECEIVE_PLACE_PHOTOS,
-  LIKE_PLACE
+  LIKE_PLACE,
+  DISLIKE_PLACE
 } from '../constants'
 
 const placesByIdInitialState = {}
@@ -33,13 +34,22 @@ const insertPhotos = (state, payload) => {
   }
 }
 
-const likePlace = (state, payload) => {
-  const {id} = payload
+const likePlace = (state, {id}) => {
   return {
     ...state,
     [id]: {
       ...state[id],
       liked: true
+    }
+  }
+}
+
+const dislikePlace = (state, {id}) => {
+  return {
+    ...state,
+    [id]: {
+      ...state[id],
+      liked: false
     }
   }
 }
@@ -54,6 +64,8 @@ const placesById = (state = placesByIdInitialState, {type, payload}) => {
       return insertPhotos(state, payload)
     case LIKE_PLACE:
       return likePlace(state, payload)
+    case DISLIKE_PLACE:
+      return dislikePlace(state, payload)
     default:
       return state
   }

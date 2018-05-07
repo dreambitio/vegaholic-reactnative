@@ -1,8 +1,10 @@
+import { AsyncStorage } from 'react-native'
 import {
   RECEIVE_PLACES,
   RECEIVE_PLACE,
   RECEIVE_PLACE_PHOTOS,
-  LIKE_PLACE
+  LIKE_PLACE,
+  DISLIKE_PLACE
 } from '../constants'
 import {
   fetchVenues,
@@ -38,7 +40,16 @@ export const fetchPlaces = () => dispatch => {
           }
           return details.id
         })
-        dispatch(receivePlaces(placesById, allPlacesIds))
+
+        // Get Likes
+        AsyncStorage.getItem('LikedIDs').then(value => {
+          let ids = value ? JSON.parse(value) : []
+          ids.forEach(id => {
+            placesById[id].liked = true
+          })
+
+          dispatch(receivePlaces(placesById, allPlacesIds))
+        })
       })
     })
 }
@@ -67,7 +78,28 @@ export const fetchPlacePhotos = id => dispatch => {
   })
 }
 
-export const likePlace = id => ({
-  type: LIKE_PLACE,
-  payload: {id}
-})
+export const likePlace = id => {
+  AsyncStorage.getItem('LikedIDs').then(value => {
+    let ids = value ? JSON.parse(value) : []
+    ids.push(id)
+    AsyncStorage.setItem('LikedIDs', JSON.stringify(ids))
+  })
+
+  return {
+    type: LIKE_PLACE,
+    payload: {id}
+  }
+}
+
+export const dislikePlace = id => {
+  AsyncStorage.getItem('LikedIDs').then(value => {
+    let ids = value ? JSON.parse(value) : []
+    ids.splice(ids.indexOf(id), 1)
+    AsyncStorage.setItem('LikedIDs', JSON.stringify(ids))
+  })
+
+  return {
+    type: DISLIKE_PLACE,
+    payload: {id}
+  }
+}

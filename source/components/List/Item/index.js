@@ -8,7 +8,7 @@ import {
   Image
 } from 'react-native'
 
-import Photo from './Photo'
+import Photo from '../../../containers/ListItem/Photo'
 import Info from '../../../containers/ListItem/Info'
 
 const {width} = Dimensions.get('window')
@@ -34,7 +34,7 @@ export default class ListItem extends Component {
       },
       onPanResponderRelease: (evt, gestureState) => {
         if (gestureState.dx > 150)
-          this.props.likePlace()
+          this.props.record.liked ? this.props.dislikePlace() : this.props.likePlace()
 
         Animated.timing(this.state.position, {
           toValue: {x: 0, y: 0},
@@ -57,10 +57,7 @@ export default class ListItem extends Component {
   }
 
   render () {
-    const {
-      id,
-      previewPhoto
-    } = this.props.record
+    const {id} = this.props.record
 
     return <View style={styles.container}>
       <Animated.View
@@ -71,7 +68,7 @@ export default class ListItem extends Component {
           <Image source={require('../../../assets/icons/likes/heart_big.png')}/>
         </View>
         <View style={styles.itemCell}>
-          <Photo style={styles.photo} uri={previewPhoto}/>
+          <Photo id={id} style={styles.photo}/>
           <Info id={id}/>
         </View>
       </Animated.View>
