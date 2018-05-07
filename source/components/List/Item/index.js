@@ -9,7 +9,7 @@ import {
 } from 'react-native'
 
 import Photo from './Photo'
-import Info from './Info'
+import Info from '../../../containers/ListItem/Info'
 
 const {width} = Dimensions.get('window')
 
@@ -58,9 +58,8 @@ export default class ListItem extends Component {
 
   render () {
     const {
-      previewPhoto,
-      name,
-      liked
+      id,
+      previewPhoto
     } = this.props.record
 
     return <View style={styles.container}>
@@ -73,10 +72,7 @@ export default class ListItem extends Component {
         </View>
         <View style={styles.itemCell}>
           <Photo style={styles.photo} uri={previewPhoto}/>
-          <Info
-            name={name}
-            liked={liked}
-          />
+          <Info id={id}/>
         </View>
       </Animated.View>
     </View>
