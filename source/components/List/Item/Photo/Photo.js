@@ -18,7 +18,7 @@ export default class Photo extends Component {
           style={styles.image}/>
         {liked && <View style={styles.liked}>
           <Image
-            source={require('../../../assets/icons/likes/heart_small.png')}/>
+            source={require('../../../../assets/icons/likes/heart_small.png')}/>
         </View>}
       </View>
     )

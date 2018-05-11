@@ -7,16 +7,16 @@ const Star = ({style, type}) => {
   switch (type) {
     case 'full':
       star =
-        <Image source={require('../../../../assets/icons/rating/star_full.png')}/>
+        <Image source={require('../../../../../assets/icons/rating/star_full.png')}/>
       break
     case 'half':
       star =
-        <Image source={require('../../../../assets/icons/rating/star_half.png')}/>
+        <Image source={require('../../../../../assets/icons/rating/star_half.png')}/>
       break
     case 'empty':
     default:
       star =
-        <Image source={require('../../../../assets/icons/rating/star_empty.png')}/>
+        <Image source={require('../../../../../assets/icons/rating/star_empty.png')}/>
   }
 
   return <View style={style}>{star}</View>
