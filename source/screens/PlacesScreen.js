@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
+
+import List from '../containers/List'
 
 export default class PlacesScreen extends Component {
   render () {
     return <View>
-      <Text></Text>
+      <List/>
     </View>
   }
 }
