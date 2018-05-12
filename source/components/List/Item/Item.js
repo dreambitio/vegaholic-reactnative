@@ -5,7 +5,8 @@ import {
   StyleSheet,
   PanResponder,
   Dimensions,
-  Image
+  Image,
+  TouchableWithoutFeedback
 } from 'react-native'
 
 import Photo from '../../../containers/ListItemPhoto'
@@ -47,6 +48,8 @@ export default class ListItem extends Component {
 
     this.panResponder = panResponder
     this.state = {position}
+
+    this.goToPlaceScreen = this.goToPlaceScreen.bind(this)
   }
 
   setScrollViewEnabled (enabled) {
@@ -54,6 +57,14 @@ export default class ListItem extends Component {
       this.props.setScrollEnabled(enabled)
       this.scrollViewEnabled = enabled
     }
+  }
+
+  goToPlaceScreen () {
+    const {id, name} = this.props.record
+    this.props.navigation.navigate('Place', {
+      id,
+      title: name
+    })
   }
 
   render () {
@@ -68,8 +79,12 @@ export default class ListItem extends Component {
           <Image source={require('../../../assets/icons/likes/heart_big.png')}/>
         </View>
         <View style={styles.itemCell}>
-          <Photo id={id} style={styles.photo}/>
-          <Info id={id}/>
+          <TouchableWithoutFeedback onPress={this.goToPlaceScreen}>
+            <View style={{flexDirection: 'row'}}>
+              <Photo id={id} style={styles.photo}/>
+              <Info id={id}/>
+            </View>
+          </TouchableWithoutFeedback>
         </View>
       </Animated.View>
     </View>
@@ -93,7 +108,6 @@ const styles = StyleSheet.create({
   },
 
   itemCell: {
-    flexDirection: 'row',
     width: width,
     marginLeft: 100,
     paddingVertical: 15,

@@ -1,10 +1,19 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+
+import Details from '../containers/Details'
 
 export default class PlaceScreen extends Component {
+  static navigationOptions = ({navigation}) => {
+    const {title} = navigation.state.params
+
+    return {
+      title: title ? title : 'Place'
+    }
+  }
+
   render () {
-    return <View>
-      <Text>Place</Text>
-    </View>
+    const {id} = this.props.navigation.state.params
+
+    return <Details id={id}/>
   }
 }
