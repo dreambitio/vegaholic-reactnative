@@ -4,7 +4,7 @@ import _ from 'lodash'
 
 const placeholderColor = '#D8D8D8'
 
-const Item = ({style, key}) => <View style={[style, styles.container]}>
+const Item = ({style, key}) => <View style={[style, itemStyles.container]}>
   <View style={itemStyles.photo}/>
   <View>
     <View style={[itemStyles.bigRow, {width: 210}]}/>
