@@ -56,5 +56,6 @@ export default StackNavigator({
 }, {
   cardStyle: {
     backgroundColor: '#F6F6F6'
-  }
+  },
+  headerMode: 'screen'
 })

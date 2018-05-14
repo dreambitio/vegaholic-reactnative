@@ -1,13 +1,14 @@
 import React, { Component } from 'react'
 
 import Details from '../containers/Details'
+import DetailsHeader from '../containers/DetailsHeader'
 
 export default class PlaceScreen extends Component {
   static navigationOptions = ({navigation}) => {
-    const {title} = navigation.state.params
+    const {id} = navigation.state.params
 
     return {
-      title: title ? title : 'Place'
+      header: <DetailsHeader id={id} goBack={navigation.goBack}/>
     }
   }
 

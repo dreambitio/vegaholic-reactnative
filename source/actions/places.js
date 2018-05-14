@@ -11,6 +11,9 @@ import {
   fetchVenue,
   fetchVenuePhotos
 } from '../services/foursquare'
+import { Dimensions } from 'react-native'
+
+const {width} = Dimensions.get('window')
 
 const receivePlaces = (byId, allIds) => ({
   type: RECEIVE_PLACES,
@@ -29,13 +32,12 @@ export const fetchPlaces = () => dispatch => {
         let placesById = {}
         let allPlacesIds = places.map(place => {
           const details = place[0]
-          const photos = place[1]
+          let photos = place[1]
+          if (photos.length > 5)
+            photos = photos.slice(0, 5)
           placesById[details.id] = {
             ...details,
-            photos: photos.map(photo => ({
-              prefix: photo.prefix,
-              suffix: photo.suffix
-            })),
+            photos: photos.map(photo => `${photo.prefix}${width}x450${photo.suffix}`),
             previewPhoto: `${photos[0].prefix}90x90${photos[0].suffix}`
           }
           return details.id

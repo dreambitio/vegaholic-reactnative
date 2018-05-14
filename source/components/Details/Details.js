@@ -1,14 +1,10 @@
-import React, { Component } from 'react'
-import {View, Text} from 'react-native'
+import React, { PureComponent } from 'react'
+import { View, Text } from 'react-native'
 
-export default class Details extends Component {
-  componentDidMount() {
-    this.props.fetchPlace()
-  }
-
-  render() {
+export default class Details extends PureComponent {
+  render () {
     return <View>
-      <Text>{JSON.stringify(this.props.record)}</Text>
+      <Text>Details</Text>
     </View>
   }
 }
