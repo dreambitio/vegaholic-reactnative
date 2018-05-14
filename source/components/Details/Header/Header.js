@@ -28,15 +28,15 @@ export default class Header extends PureComponent {
   }
 
   toggleLike () {
-    this.props.record.liked ? this.props.dislikePlace() : this.props.likePlace()
+    this.props.liked ? this.props.dislikePlace() : this.props.likePlace()
   }
 
   render () {
     const {
       photos,
-      name,
+      title,
       liked
-    } = this.props.record
+    } = this.props
 
     return <View style={styles.container}>
       <Slider style={styles.slider} photos={photos}/>
@@ -51,7 +51,7 @@ export default class Header extends PureComponent {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <Text style={styles.title}>{name}</Text>
+        <Text style={styles.title}>{title}</Text>
         <View style={styles.likeButton}>
           <TouchableWithoutFeedback onPress={this.toggleLike}>
             <View>

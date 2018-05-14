@@ -1,9 +1,29 @@
 import React, { PureComponent } from 'react'
-import { View, StyleSheet } from 'react-native'
+import { ScrollView, View, StyleSheet } from 'react-native'
 
+import Header from './Header'
 import SectionWorkingHours from './SectionWorkingHours'
 
 export default class Details extends PureComponent {
+  renderHeader () {
+    const {
+      id,
+      photos,
+      name,
+      liked
+    } = this.props.record
+
+    return <Header
+      id={id}
+      photos={photos}
+      title={name}
+      liked={liked}
+      goBack={this.props.navigation.goBack}
+      likePlace={this.props.likePlace}
+      dislikePlace={this.props.dislikePlace}
+    />
+  }
+
   renderWorkingHours () {
     const {
       hours
@@ -20,14 +40,17 @@ export default class Details extends PureComponent {
   }
 
   render () {
-    return <View style={styles.container}>
-      {this.renderWorkingHours()}
-    </View>
+    return <ScrollView>
+      {this.renderHeader()}
+      <View style={styles.sectionsContainer}>
+        {this.renderWorkingHours()}
+      </View>
+    </ScrollView>
   }
 }
 
 const styles = StyleSheet.create({
-  container: {
+  sectionsContainer: {
     paddingVertical: 20
   },
 

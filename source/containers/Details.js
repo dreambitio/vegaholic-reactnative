@@ -1,4 +1,5 @@
 import { connect } from 'react-redux'
+import { withNavigation } from 'react-navigation'
 
 import { fetchPlace, likePlace, dislikePlace } from '../actions/places'
 import Details from '../components/Details'
@@ -13,4 +14,6 @@ const mapDispatchToProps = (dispatch, ownProps) => ({
   dislikePlace: () => dispatch(dislikePlace(ownProps.id))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(Details)
+export default connect(mapStateToProps, mapDispatchToProps)(
+  withNavigation(Details)
+)
