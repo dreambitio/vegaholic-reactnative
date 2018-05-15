@@ -1,8 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Image, View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
-import Section from '../common/Section'
-import ShadowContainer from '../../common/ShadowContainer'
+import SectionShadowContainer from '../common/SectionShadowContainer'
 
 export default class SectionWorkingHours extends PureComponent {
   constructor (props) {
@@ -29,43 +28,31 @@ export default class SectionWorkingHours extends PureComponent {
       timeFrames
     } = this.props
 
-    return <Section
+    return <SectionShadowContainer
       style={style}
       iconColor="#787892"
       iconSource={require('../../../assets/icons/detail/clock.png')}
       title="Working hours"
     >
-      <View style={styles.outerContainer}>
-        <ShadowContainer style={styles.innerContainer}>
-          <Text style={[styles.font, styles.currentStateText]}>{currentState}</Text>
-          <TouchableWithoutFeedback onPress={this.toggle}>
-            <View style={styles.status}>
-              <Text style={[styles.font, styles.statusText]}>{status}</Text>
-              {this.state.timeFramesVisible ? <Image source={require('../../../assets/icons/detail/arrow-up.png')}/> :
-                <Image source={require('../../../assets/icons/detail/arrow-down.png')}/>}
-            </View>
-          </TouchableWithoutFeedback>
-          {this.state.timeFramesVisible && <View style={styles.timeFrames}>
-            {timeFrames.map(timeFrame => <View style={styles.timeFrame}>
-              <Text style={styles.font}>{timeFrame.days}</Text>
-              <Text style={styles.font}>{timeFrame.open[0].renderedTime}</Text>
-            </View>)}
-          </View>}
-        </ShadowContainer>
-      </View>
-    </Section>
+      <Text style={[styles.font, styles.currentStateText]}>{currentState}</Text>
+      <TouchableWithoutFeedback onPress={this.toggle}>
+        <View style={styles.status}>
+          <Text style={[styles.font, styles.statusText]}>{status}</Text>
+          {this.state.timeFramesVisible ? <Image source={require('../../../assets/icons/detail/arrow-up.png')}/> :
+            <Image source={require('../../../assets/icons/detail/arrow-down.png')}/>}
+        </View>
+      </TouchableWithoutFeedback>
+      {this.state.timeFramesVisible && <View style={styles.timeFrames}>
+        {timeFrames.map(timeFrame => <View style={styles.timeFrame}>
+          <Text style={styles.font}>{timeFrame.days}</Text>
+          <Text style={styles.font}>{timeFrame.open[0].renderedTime}</Text>
+        </View>)}
+      </View>}
+    </SectionShadowContainer>
   }
 }
 
 const styles = StyleSheet.create({
-  outerContainer: {
-    paddingHorizontal: 10
-  },
-
-  innerContainer: {
-    padding: 20
-  },
-
   font: {
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
