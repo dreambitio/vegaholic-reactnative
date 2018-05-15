@@ -3,6 +3,7 @@ import { ScrollView, View, StyleSheet } from 'react-native'
 
 import Header from './Header'
 import SectionWorkingHours from './SectionWorkingHours'
+import SectionMenu from './SectionMenu'
 
 export default class Details extends PureComponent {
   renderHeader () {
@@ -39,11 +40,26 @@ export default class Details extends PureComponent {
     />
   }
 
+  renderMenu () {
+    const {
+      hasMenu,
+      menu
+    } = this.props.record
+
+    if (!hasMenu) return null
+
+    return <SectionMenu
+      style={styles.section}
+      menus={menu.items}
+    />
+  }
+
   render () {
     return <ScrollView>
       {this.renderHeader()}
       <View style={styles.sectionsContainer}>
         {this.renderWorkingHours()}
+        {this.renderMenu()}
       </View>
     </ScrollView>
   }

@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react'
-import { View, TouchableWithoutFeedback, Text, StyleSheet } from 'react-native'
+import { View, TouchableWithoutFeedback, Image, Text, StyleSheet } from 'react-native'
 
 export default class Section extends PureComponent {
   constructor (props) {
@@ -18,7 +18,7 @@ export default class Section extends PureComponent {
     const {
       style,
       iconColor,
-      icon,
+      iconSource,
       title,
       children
     } = this.props
@@ -28,7 +28,7 @@ export default class Section extends PureComponent {
         <TouchableWithoutFeedback onPress={this.handlePress}>
           <View style={styles.header}>
             <View style={[{backgroundColor: iconColor}, styles.icon]}>
-              {icon}
+              <Image source={iconSource}/>
             </View>
 
             <Text style={styles.title}>{title.toUpperCase()}</Text>

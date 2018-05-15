@@ -29,8 +29,7 @@ const request = urlString => {
 export const fetchVenues = () => {
   let params = {
     query: 'vegan',
-    intent: 'global',
-    limit: 5
+    intent: 'global'
   }
   params = {...params, ...defaultParams}
 
@@ -49,4 +48,10 @@ export const fetchVenuePhotos = id => {
   let urlString = `${apiUrl}/${id}/photos?${queryString.stringify(defaultParams)}`
 
   return request(urlString).then(response => response.photos.items)
+}
+
+export const fetchVenueMenu = id => {
+  let urlString = `${apiUrl}/${id}/menu?${queryString.stringify(defaultParams)}`
+
+  return request(urlString).then(response => response.menu.menus)
 }

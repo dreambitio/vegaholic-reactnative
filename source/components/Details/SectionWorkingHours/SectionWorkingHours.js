@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react'
 import { Image, View, Text, TouchableWithoutFeedback, StyleSheet } from 'react-native'
 
-import Section from '../Section'
+import Section from '../common/Section'
 import ShadowContainer from '../../common/ShadowContainer'
 
 export default class SectionWorkingHours extends PureComponent {
@@ -32,7 +32,7 @@ export default class SectionWorkingHours extends PureComponent {
     return <Section
       style={style}
       iconColor="#787892"
-      icon={<Image source={require('../../../assets/icons/detail/clock.png')}/>}
+      iconSource={require('../../../assets/icons/detail/clock.png')}
       title="Working hours"
     >
       <View style={styles.outerContainer}>
