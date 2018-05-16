@@ -55,3 +55,13 @@ export const fetchVenueMenu = id => {
 
   return request(urlString).then(response => response.menu.menus)
 }
+
+export const fetchVenueTips = id => {
+  const params = {
+    ...defaultParams,
+    sort: 'recent'
+  }
+  let urlString = `${apiUrl}/${id}/tips?${queryString.stringify(params)}`
+
+  return request(urlString).then(response => response.tips.count > 0 ? response.tips.items : [])
+}

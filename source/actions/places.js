@@ -10,7 +10,8 @@ import {
   fetchVenues,
   fetchVenue,
   fetchVenuePhotos,
-  fetchVenueMenu
+  fetchVenueMenu,
+  fetchVenueTips
 } from '../services/foursquare'
 import { Dimensions } from 'react-native'
 
@@ -27,21 +28,28 @@ const receivePlaces = (byId, allIds) => ({
 export const fetchPlaces = () => dispatch => {
   fetchVenues().
     then(places => {
-      let promises = places.map(place => Promise.all([fetchVenue(place.id), fetchVenuePhotos(place.id), fetchVenueMenu(place.id)]))
+      let promises = places.map(place => Promise.all([fetchVenue(place.id), fetchVenuePhotos(place.id), fetchVenueMenu(place.id), fetchVenueTips(place.id)]))
 
       Promise.all(promises).then(places => {
         let placesById = {}
         let allPlacesIds = places.map(place => {
           const details = place[0]
-          let photos = place[1]
+          const photos = place[1]
           const menu = place[2]
-          if (photos.length > 5)
-            photos = photos.slice(0, 5)
+          const tips = place[3]
+
           placesById[details.id] = {
             ...details,
-            photos: photos.map(photo => `${photo.prefix}${width}x450${photo.suffix}`),
+            photos: photos.slice(0, 5).map(photo => `${photo.prefix}${width}x450${photo.suffix}`),
             previewPhoto: `${photos[0].prefix}90x90${photos[0].suffix}`,
-            menu
+            menu,
+            tips: tips.map(tip => ({
+              ...tip,
+              user: {
+                ...tip.user,
+                photo: tip.user.photo ? `${tip.user.photo.prefix}34x34${tip.user.photo.suffix}` : null
+              }
+            }))
           }
           return details.id
         })
