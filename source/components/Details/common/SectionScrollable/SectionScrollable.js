@@ -20,7 +20,7 @@ export default class SectionScrollable extends PureComponent {
       title={title}
     >
       <ScrollView horizontal={true} style={styles.container}>
-        {children.map(child => <View style={styles.item}>{child}</View>)}
+        {children.map((child, index) => <View key={index} style={styles.item}>{child}</View>)}
         <View style={styles.empty}/>
       </ScrollView>
     </Section>

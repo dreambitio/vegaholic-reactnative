@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, Image, StyleSheet } from 'react-native'
 
 import SectionScrollable from '../common/SectionScrollable'
 import ShadowContainer from '../../common/ShadowContainer'
+import ViewWithBackground from '../../common/ViewWithBackground'
 
 export default class SectionMenu extends PureComponent {
   render () {
@@ -17,12 +18,12 @@ export default class SectionMenu extends PureComponent {
       iconSource={require('../../../assets/icons/detail/tray.png')}
       title="Menu"
     >
-      {menus.map(menu => <ShadowContainer style={styles.container}>
+      {menus.map((menu, index) => <ShadowContainer key={index} style={styles.container}>
         <View style={styles.header}>
           <Text style={styles.name}>{menu.name}</Text>
-          <View style={styles.count}>
+          <ViewWithBackground backgroundSource={require('../../../assets/icons/detail/menu.png')} style={styles.count} width={16} height={18}>
             <Text style={styles.countText}>{menu.entries.count}</Text>
-          </View>
+          </ViewWithBackground>
         </View>
         <Text style={styles.description}>{menu.description}</Text>
       </ShadowContainer>)}
@@ -51,21 +52,22 @@ const styles = StyleSheet.create({
   },
 
   count: {
-    backgroundColor: '#2DC86D',
-    paddingHorizontal: 3
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 3
   },
 
   countText: {
     fontFamily: 'Montserrat',
-    fontWeight: '600',
+    fontWeight: 'bold',
     color: 'white',
-    fontSize: 14
+    fontSize: 12
   },
 
   description: {
     fontFamily: 'Montserrat',
     fontWeight: '500',
-    color: 'black',
-    fontSize: 14
+    color: '#9999A0',
+    fontSize: 13
   }
 })
