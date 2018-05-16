@@ -18,7 +18,7 @@ export default class SectionTips extends PureComponent {
       iconSource={require('../../../assets/icons/detail/light.png')}
       title="Tips"
     >
-      {tips.map(tip => <ShadowContainer style={styles.container}>
+      {tips.map((tip, index) => <ShadowContainer key={index} style={styles.container}>
         <View style={styles.header}>
           <View style={styles.photoContainer}>
             <Image source={{uri: tip.user.photo}} style={styles.photo}/>

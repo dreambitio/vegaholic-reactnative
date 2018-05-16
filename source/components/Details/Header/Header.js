@@ -39,7 +39,7 @@ export default class Header extends PureComponent {
     } = this.props
 
     return <View style={styles.container}>
-      <Slider style={styles.slider} photos={photos}/>
+      <Slider photos={photos}/>
       <LinearGradient
         style={styles.row}
         colors={['black', 'transparent']}

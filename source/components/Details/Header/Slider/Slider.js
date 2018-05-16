@@ -24,10 +24,10 @@ const ActiveDot = () => <View style={{
 
 export default class Slider extends PureComponent {
   render () {
-    const {style, photos} = this.props
+    const {photos} = this.props
 
-    return <Swiper style={[style, styles.container]} dot={<Dot/>} activeDot={<ActiveDot/>}>
-      {photos.map(photoUrl => <View style={styles.slide}>
+    return <Swiper style={styles.container} dot={<Dot/>} activeDot={<ActiveDot/>}>
+      {photos.map((photoUrl, index) => <View key={index} style={styles.slide}>
         <Image source={{
           uri: photoUrl
         }} style={styles.photo}/>
