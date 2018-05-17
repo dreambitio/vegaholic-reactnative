@@ -5,6 +5,7 @@ import Header from './Header'
 import SectionWorkingHours from './SectionWorkingHours'
 import SectionMenu from './SectionMenu'
 import SectionTips from './SectionTips'
+import SectionContacts from './SectionContacts'
 
 export default class Details extends PureComponent {
   renderHeader () {
@@ -68,6 +69,21 @@ export default class Details extends PureComponent {
     />
   }
 
+  renderContacts () {
+    const {
+      contact,
+      location,
+      url
+    } = this.props.record
+
+    return <SectionContacts
+      style={styles.section}
+      location={location}
+      phone={contact.phone}
+      url={url}
+    />
+  }
+
   render () {
     return <ScrollView>
       {this.renderHeader()}
@@ -75,6 +91,7 @@ export default class Details extends PureComponent {
         {this.renderWorkingHours()}
         {this.renderMenu()}
         {this.renderTips()}
+        {this.renderContacts()}
       </View>
     </ScrollView>
   }
