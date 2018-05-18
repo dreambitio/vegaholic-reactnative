@@ -40,7 +40,7 @@ export const fetchPlaces = () => dispatch => {
 
           placesById[details.id] = {
             ...details,
-            photos: photos.slice(0, 5).map(photo => `${photo.prefix}${width}x450${photo.suffix}`),
+            photos: photos.slice(0, 5).map(photo => `${photo.prefix}${Math.ceil(width)}x450${photo.suffix}`),
             previewPhoto: `${photos[0].prefix}90x90${photos[0].suffix}`,
             menu,
             tips: tips.map(tip => ({
