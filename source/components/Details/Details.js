@@ -13,7 +13,8 @@ export default class Details extends PureComponent {
       id,
       photos,
       name,
-      liked
+      liked,
+      rating
     } = this.props.record
 
     return <Header
@@ -24,6 +25,7 @@ export default class Details extends PureComponent {
       goBack={this.props.navigation.goBack}
       likePlace={this.props.likePlace}
       dislikePlace={this.props.dislikePlace}
+      rating={rating}
     />
   }
 

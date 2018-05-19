@@ -7,16 +7,16 @@ const Star = ({style, type}) => {
   switch (type) {
     case 'full':
       star =
-        <Image source={require('../../../../../assets/icons/rating/star_full.png')}/>
+        <Image source={require('../../../assets/icons/rating/star_full.png')}/>
       break
     case 'half':
       star =
-        <Image source={require('../../../../../assets/icons/rating/star_half.png')}/>
+        <Image source={require('../../../assets/icons/rating/star_half.png')}/>
       break
     case 'empty':
     default:
       star =
-        <Image source={require('../../../../../assets/icons/rating/star_empty.png')}/>
+        <Image source={require('../../../assets/icons/rating/star_empty.png')}/>
   }
 
   return <View style={style}>{star}</View>
@@ -27,16 +27,16 @@ const Stars = ({value}) => {
 
   for (let i = 1; i <= 5; i++) {
     let type
-    if (value >= 1) {
+    if (value >= 2) {
       type = 'full'
-    } else if (value === 0.5) {
+    } else if (value >= 1) {
       type = 'half'
     } else {
       type = 'empty'
     }
 
     stars.push(type)
-    value--
+    value -= 2
   }
 
   return <View style={starsStyles.container}>
@@ -57,7 +57,6 @@ const starsStyles = StyleSheet.create({
 })
 
 export default class Rating extends Component {
-
   render () {
     const {style, value} = this.props
     return <View style={[style, styles.container]}>

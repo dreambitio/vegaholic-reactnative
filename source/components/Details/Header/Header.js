@@ -7,9 +7,9 @@ import {
   StyleSheet,
   Dimensions
 } from 'react-native'
-import LinearGradient from 'react-native-linear-gradient'
 
 import Slider from './Slider'
+import Rating from '../../common/Rating'
 
 const {width} = Dimensions.get('window')
 const backButtonWidth = 20, likeButton = 30
@@ -35,15 +35,13 @@ export default class Header extends PureComponent {
     const {
       photos,
       title,
-      liked
+      liked,
+      rating
     } = this.props
 
     return <View style={styles.container}>
       <Slider photos={photos}/>
-      <LinearGradient
-        style={styles.row}
-        colors={['black', 'transparent']}
-      >
+      <View style={styles.top}>
         <View style={styles.backButton}>
           <TouchableWithoutFeedback onPress={this.goBack}>
             <View>
@@ -60,7 +58,10 @@ export default class Header extends PureComponent {
             </View>
           </TouchableWithoutFeedback>
         </View>
-      </LinearGradient>
+      </View>
+      {rating && <View style={styles.bottom}>
+        <Rating value={rating}/>
+      </View>}
     </View>
   }
 }
@@ -75,14 +76,14 @@ const styles = StyleSheet.create({
     position: 'absolute'
   },
 
-  row: {
+  top: {
     width,
     paddingTop: 60,
     position: 'absolute',
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    minHeight: 150
+    height: 150
   },
 
   backButton: {
@@ -94,11 +95,21 @@ const styles = StyleSheet.create({
     color: 'white',
     fontFamily: 'Montserrat',
     fontWeight: 'bold',
-    fontSize: 40,
+    fontSize: 20,
     textAlign: 'center'
   },
 
   likeButton: {
+    paddingHorizontal: 20
+  },
+
+  bottom: {
+    flexDirection: 'row',
+    position: 'absolute',
+    alignItems: 'center',
+    bottom: 0,
+    width,
+    height: 75,
     paddingHorizontal: 20
   }
 })

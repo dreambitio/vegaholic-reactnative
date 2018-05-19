@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, Text, Image, StyleSheet } from 'react-native'
 
-import Rating from './Rating'
+import Rating from '../../../common/Rating'
 
 const InfoRow = ({style, type, text}) => <View
   style={[style, infoRowStyles.container]}>

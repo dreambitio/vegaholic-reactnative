@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import { View, Image, StyleSheet, Dimensions } from 'react-native'
 import Swiper from 'react-native-swiper'
+import LinearGradient from 'react-native-linear-gradient'
 
 const {width} = Dimensions.get('window')
 
@@ -26,11 +27,13 @@ export default class Slider extends PureComponent {
   render () {
     const {photos} = this.props
 
-    return <Swiper style={styles.container} dot={<Dot/>} activeDot={<ActiveDot/>}>
+    return <Swiper style={styles.container} paginationStyle={styles.pagination} dot={<Dot/>} activeDot={<ActiveDot/>}>
       {photos.map((photoUrl, index) => <View key={index} style={styles.slide}>
         <Image source={{
           uri: photoUrl
         }} style={styles.photo}/>
+        <LinearGradient style={styles.top} colors={['black', 'transparent']}/>
+        <LinearGradient style={styles.bottom} colors={['transparent', 'black']}/>
       </View>)}
     </Swiper>
   }
@@ -39,6 +42,11 @@ export default class Slider extends PureComponent {
 const styles = StyleSheet.create({
   container: {
     height: 450
+  },
+
+  pagination: {
+    justifyContent: 'flex-end',
+    paddingRight: 20
   },
 
   slide: {
@@ -52,5 +60,19 @@ const styles = StyleSheet.create({
   photo: {
     width,
     height: 450
+  },
+
+  top: {
+    position: 'absolute',
+    top: 0,
+    width,
+    height: 150
+  },
+
+  bottom: {
+    position: 'absolute',
+    bottom: 0,
+    width,
+    height: 75
   }
 })
