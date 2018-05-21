@@ -47,7 +47,8 @@ const HomeScreen = TabNavigator({
       borderTopWidth: 0,
       backgroundColor: 'white'
     }
-  }
+  },
+  swipeEnabled: false
 })
 
 export default StackNavigator({

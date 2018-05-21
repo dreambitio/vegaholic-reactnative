@@ -21,35 +21,37 @@ export default class ListItem extends Component {
     this.gestureDelay = -35
     this.scrollViewEnabled = true
 
-    const position = new Animated.ValueXY()
-    const panResponder = PanResponder.create({
-      onStartShouldSetPanResponder: (evt, gestureState) => false,
-      onMoveShouldSetPanResponder: (evt, gestureState) => true,
-      onPanResponderTerminationRequest: (evt, gestureState) => false,
-      onPanResponderMove: (evt, gestureState) => {
-        if (gestureState.dx > 35) {
-          this.setScrollViewEnabled(false)
-          let newX = gestureState.dx + this.gestureDelay
-          position.setValue({x: newX, y: 0})
-        }
-      },
-      onPanResponderRelease: (evt, gestureState) => {
-        if (gestureState.dx > 150)
-          this.props.record.liked ? this.props.dislikePlace() : this.props.likePlace()
+    this.state = {
+      position: new Animated.ValueXY()
+    }
 
-        Animated.timing(this.state.position, {
-          toValue: {x: 0, y: 0},
-          duration: 150
-        }).start(() => {
-          this.setScrollViewEnabled(true)
-        })
-      }
+    this._panResponder = PanResponder.create({
+      onMoveShouldSetPanResponder: (event, gestureState) => this.handleMoveShouldSetPanResponder(event, gestureState),
+      onPanResponderMove: (event, gestureState) => this.handlePanResponderMove(event, gestureState),
+      onPanResponderEnd: (event, gestureState) => this.handlePanResponderEnd(event, gestureState)
     })
 
-    this.panResponder = panResponder
-    this.state = {position}
-
     this.goToPlaceScreen = this.goToPlaceScreen.bind(this)
+  }
+
+  handleMoveShouldSetPanResponder = (event, gestureState) => gestureState.dx > 0
+
+  handlePanResponderMove = (event, gestureState) => {
+    this.setScrollViewEnabled(false)
+    let newX = gestureState.dx + this.gestureDelay
+    this.state.position.setValue({x: newX, y: 0})
+  }
+
+  handlePanResponderEnd = (event, gestureState) => {
+    if (gestureState.dx > 150)
+      this.props.record.liked ? this.props.dislikePlace() : this.props.likePlace()
+
+    Animated.timing(this.state.position, {
+      toValue: {x: 0, y: 0},
+      duration: 150
+    }).start(() => {
+      this.setScrollViewEnabled(true)
+    })
   }
 
   setScrollViewEnabled (enabled) {
@@ -73,7 +75,7 @@ export default class ListItem extends Component {
     return <View style={styles.container}>
       <Animated.View
         style={[this.state.position.getLayout()]}
-        {...this.panResponder.panHandlers}
+        {...this._panResponder.panHandlers}
       >
         <View style={styles.likeCell}>
           <Image source={require('../../../assets/icons/likes/heart_big.png')}/>
